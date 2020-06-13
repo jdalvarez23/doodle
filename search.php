@@ -1,4 +1,5 @@
 <?php
+    include("config.php");
     
     if (isset($_GET['q'])) {
         $query = $_GET['q'];
@@ -34,7 +35,7 @@
 						<div class="searchBarContainer">
 							<input class="searchBox" type="text" name="q">
 							<button class="searchButton">
-								<img src="assets/images/icons/search.png">
+								<img src="assets/images/icons/search.png" title="Doodle" alt="Doodle Logo">
 							</button>
 						</div>
 					</form>
