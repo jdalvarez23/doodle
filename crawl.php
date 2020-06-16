@@ -138,9 +138,41 @@ function getDetails($url) {
         }
         // retrieve value of keywords meta tag
         if ($meta -> getAttribute('name') == "keywords") {
-            $description = $meta -> getAttribute('content');
+            $keywords = $meta -> getAttribute('content');
         }
     }
+
+    // retrieve paragraph list
+    $headerList = $parser -> getHeaders();
+
+    // check if description is empty
+    if (strlen($description) == 0) {
+        // initialize index of array
+        $index = 0;
+
+        // retrieve the first paragraph and assign to description
+        $description = $headerList -> item($index) -> textContent;
+
+        // increment index
+        $index++;
+
+        // check if description is still empty
+        if (strlen($description) == 0) {
+            // check if length of array is greater than 1
+            if (count($headerList) > 5) {
+                do {
+
+                    $description = $headerList -> item($index) -> textContent;
+
+                    $index++;
+            
+                } while (strlen($description) == 0);
+            } else {
+                $description = "";
+            }
+        }
+    }
+
 
     // replace any new lines in description and keywords
     $description = str_replace("\n", "", $description);
@@ -253,5 +285,5 @@ function followLinks($url) {
 
 }
 
-$startUrl = "https://www.bbc.com";
+$startUrl = "https://www.cnn.com";
 followLinks($startUrl);

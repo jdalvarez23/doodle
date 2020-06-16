@@ -41,4 +41,14 @@ class DomDocumentParser {
         return $this -> doc -> getElementsByTagName('img');
     }
 
+    // method that returns h1 headers of url
+    public function getHeaders() {
+        return $this -> doc -> getElementsByTagName('h1');
+    }
+    
+    // method that returns paragraphs of url
+    public function getParagraphs() {
+        return $this -> doc -> getElementsByTagName('p');
+    }
+
 }
