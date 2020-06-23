@@ -1,6 +1,7 @@
 <?php
     include("config.php");
     include("classes/SiteResultsProvider.php");
+    include("classes/ImageResultsProvider.php");
 
     if (isset($_GET['q'])) {
         $query = $_GET['q'];
@@ -26,6 +27,7 @@
 <head>
 	<title>Welcome to Doodle</title>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <script src="http://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -59,11 +61,19 @@
         </div>
         <div class="mainResultsSection">
             <?php 
-                // create a new instance of the site result provider
-                $resultProvider = new SiteResultsProvider($con);
-                
-                // declare page limit
-                $pageSize = 20;
+
+                // check type of page (sites, images)
+                if ($type == "sites") {
+                    // create a new instance of the site result provider
+                    $resultProvider = new SiteResultsProvider($con);
+                    // declare page limit
+                    $pageSize = 20;
+                } else {
+                    // create a new instance of the image result provider
+                    $resultProvider = new ImageResultsProvider($con);
+                    // declare page limit
+                    $pageSize = 30;
+                }
                 
                 // retrieve number of results
                 $numResults = $resultProvider -> getNumResults($query);
@@ -136,6 +146,8 @@
         </div>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script type="text/javascript" src="assets/js/script.js"></script>
 
 </body>
